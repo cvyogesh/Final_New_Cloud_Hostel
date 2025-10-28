@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h2>Register New Student</h2>
+    <input type="text" id="fullName" placeholder="Full Name">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <input type="text" id="department" placeholder="Department">
+    <input type="number" id="year" placeholder="Year of Study">
+    <select id="gender">
+        <option value="" disabled selected>Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+    </select>
+    <label>
+        <input type="checkbox" id="pd" style="width: auto;">
+        Physically Disabled (Requires Ground Floor)
+    </label>
+    <button id="registerBtn">Register</button>
+    <p>Already have an account? <a href="login.html">Login here</a></p>
+</div>
+<script src="utils.js"></script>
+<script src="register.js"></script>
+</body>
+</html>

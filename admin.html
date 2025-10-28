@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto p-4 md:p-8">
+        <a href="index.html" class="text-blue-600 hover:underline mb-6 inline-block">&larr; Back to Home</a>
+
+        <!-- KEY AUTH SECTION -->
+        <div id="auth-section" class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md text-center">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Admin Authentication</h2>
+            <input type="password" id="admin-key" placeholder="Enter Admin Key" class="w-full p-3 mb-4 border rounded">
+            <button id="authBtn" class="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700">Access Panel</button>
+        </div>
+
+        <!-- ADMIN DASHBOARD SECTION -->
+        <div id="dashboard-section" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-3xl font-bold text-gray-800">Admin Control Panel</h1>
+                <button id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Exit Panel</button>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Actions</h2>
+                <button id="allocateBtn" class="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition-colors">
+                    Run Auto-Allocation for All Pending Students
+                </button>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Hostel Occupancy Status</h2>
+                <div id="room-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4"></div>
+            </div>
+        </div>
+    </div>
+    <script src="utils.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

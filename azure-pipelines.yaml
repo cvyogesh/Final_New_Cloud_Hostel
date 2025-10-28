@@ -1,0 +1,56 @@
+# This is the simplest possible CI pipeline.
+# Its only job is to automatically trigger when code is pushed to the 'main' branch.
+
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo "CI Trigger Successful! A code change was detected in the repository."
+  displayName: 'Detect Code Change'
+```
+
+**What this does:**
+* `trigger: - main`: This is the magic part. It tells Azure DevOps to watch your `main` branch.
+* `script: echo ...`: This is a simple command that just prints a success message. It proves the pipeline ran.
+
+**Push this new, simpler file to your repository.**
+```bash
+git add azure-pipelines.yaml
+git commit -m "Setup basic CI trigger for demo"
+git push
+```
+
+---
+
+### **Step 2: Create the Pipeline in Azure DevOps**
+
+Now, we just need to tell Azure DevOps to use this new instruction file.
+
+1.  In your Azure DevOps project, click **"Pipelines"** on the main left menu.
+2.  Click **"New pipeline"**.
+3.  **Where is your code?** Select **"Azure Repos Git"** (because you already imported it).
+4.  Select your repository.
+5.  **Configure your pipeline:** Choose **"Existing Azure Pipelines YAML file"**.
+6.  It will automatically find your `azure-pipelines.yaml` file. Select it and click **"Continue"**.
+7.  Finally, click the **"Run"** button. (You don't need a service connection for this simple pipeline).
+
+---
+
+### **Step 3: The Demo Script for Your Review (This is all you need)**
+
+You are now perfectly set up for your presentation.
+
+1.  **Show Your Pipeline:** Start by showing the pipeline you just created in Azure DevOps. Say, "I have set up a basic Continuous Integration pipeline. As you can see, its last run was successful."
+
+2.  **Make a Code Change:** Go to VS Code and make a small, visible change. For example, open `index.html` and change the main title text. Save the file.
+
+3.  **Push the Change:** In your terminal, commit and push the change.
+    ```bash
+    git add .
+    git commit -m "Live demo update"
+    git push
+    
+

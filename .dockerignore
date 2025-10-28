@@ -1,0 +1,12 @@
+This file tells Docker which files and folders to ignore when building the image.
+It's similar to .gitignore and helps keep the image small and secure.
+Ignore Python virtual environment
+venv
+pycache/
+
+Ignore IDE/editor-specific files
+.vscode/
+.idea/
+
+Ignore environment files (we will pass these in securely)
+.env

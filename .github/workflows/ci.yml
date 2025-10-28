@@ -1,0 +1,22 @@
+# This is a basic CI pipeline for GitHub Actions
+
+name: CI Pipeline
+
+# This tells GitHub to run the pipeline on any push to the 'main' branch
+on:
+  push:
+    branches: [ "main" ]
+
+# This defines the job that will run
+jobs:
+  build:
+    # We will run this on a standard Ubuntu (Linux) virtual machine
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: This checks out your code so the pipeline can access it
+    - uses: actions/checkout@v4
+
+    # Step 2: This is the exact same test script as before
+    - name: Detect Code Change
+      run: echo "CI Trigger Successful! A code change was detected in the repository."

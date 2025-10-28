@@ -1,0 +1,25 @@
+# This file defines the 'Deployment'.
+# It tells Kubernetes how to run your application's containers (Pods).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hostel-app-deployment
+spec:
+  replicas: 2  # We'll start with 2 copies of our app for high availability.
+  selector:
+    matchLabels:
+      app: hostel-app # This is how the Deployment finds which Pods to manage.
+  template:
+    metadata:
+      labels:
+        app: hostel-app # The Pods get this label, so the selector can find them.
+    spec:
+      containers:
+        - name: hostel-app-container
+          image: hostel-allocation-app # The name of the Docker image you built.
+          imagePullPolicy: Never # IMPORTANT: This tells K8s to use the local image, not try to download it.
+          ports:
+            - containerPort: 8000 # The port your app runs on inside the container.
+          envFrom:
+            - configMapRef:
+                name: hostel-env # Load environment variables from our ConfigMap.
