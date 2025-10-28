@@ -1,22 +1,37 @@
-# This is a basic CI pipeline for GitHub Actions
+name: Build and Push Backend to ACR
 
-name: CI Pipeline
-
-# This tells GitHub to run the pipeline on any push to the 'main' branch
 on:
   push:
     branches: [ "main" ]
+    # Only run this if files outside the frontend folders change
+    paths-ignore:
+      - 'index.html'
+      - 'student.html'
+      - 'admin.html'
+      - 'student.js'
+      - 'admin.js'
+      - 'utils.js'
+      - 'style.css'
 
-# This defines the job that will run
 jobs:
-  build:
-    # We will run this on a standard Ubuntu (Linux) virtual machine
+  build_and_push_acr:
     runs-on: ubuntu-latest
-
     steps:
-    # Step 1: This checks out your code so the pipeline can access it
     - uses: actions/checkout@v4
 
-    # Step 2: This is the exact same test script as before
-    - name: Detect Code Change
-      run: echo "CI Trigger Successful! A code change was detected in the repository."
+    - name: Log in to Azure Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ secrets.ACR_LOGIN_SERVER }}
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        dockerfile: Dockerfile
+        push: true
+        tags: ${{ secrets.ACR_LOGIN_SERVER }}/hostel-allocation-app:${{ github.sha }} , ${{ secrets.ACR_LOGIN_SERVER }}/hostel-allocation-app:latest
+        # Example tag: newhostelregistryxyz.azurecr.io/hostel-allocation-app:commitSHA123
+        # Example tag: newhostelregistryxyz.azurecr.io/hostel-allocation-app:latest
