@@ -3,7 +3,7 @@ name: Build and Push Backend to ACR
 on:
   push:
     branches: [ "main" ]
-    # Only run this if files outside the frontend folders change
+    # Only run this if files *outside* the frontend folders change
     paths-ignore:
       - 'index.html'
       - 'student.html'
@@ -12,6 +12,7 @@ on:
       - 'admin.js'
       - 'utils.js'
       - 'style.css'
+      - '.github/workflows/azure-static-web-apps-*.yml' # Ignore the SWA workflow file itself
 
 jobs:
   build_and_push_acr:
@@ -30,8 +31,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
-        dockerfile: Dockerfile
+        file: ./Dockerfile # Correct input name, path relative to context
         push: true
         tags: ${{ secrets.ACR_LOGIN_SERVER }}/hostel-allocation-app:${{ github.sha }} , ${{ secrets.ACR_LOGIN_SERVER }}/hostel-allocation-app:latest
-        # Example tag: newhostelregistryxyz.azurecr.io/hostel-allocation-app:commitSHA123
-        # Example tag: newhostelregistryxyz.azurecr.io/hostel-allocation-app:latest
+
